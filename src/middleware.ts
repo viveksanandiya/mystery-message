@@ -11,15 +11,21 @@ export async function middleware(request: NextRequest) {
     const url = request.nextUrl
 
     if(token && (
-        url.pathname.startsWith('sign-in') ||
-        url.pathname.startsWith('sign-up') ||
-        url.pathname.startsWith('verify') ||
-        url.pathname.startsWith('/')
+        url.pathname.startsWith('/sign-in') ||
+        url.pathname.startsWith('/sign-up') ||
+        url.pathname.startsWith('/verify') ||
+        url.pathname === '/'
     )){
         return NextResponse.redirect(new URL('/dashboard', request.url))
     }
 
-  return NextResponse.redirect(new URL('/home', request.url))
+    if(!token && 
+        url.pathname.startsWith('/dashboard')){
+          return NextResponse.redirect(new URL('/sign-in', request.url))
+        }
+
+  return NextResponse.next()
+  //return NextResponse.redirect(new URL('/home', request.url))
 }
  
 // See "Matching Paths" below to learn more

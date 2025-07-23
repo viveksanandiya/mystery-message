@@ -17,11 +17,8 @@ async function dbConnect(): Promise<void> {
 
         connection.isConnected = db.connections[0].readyState   //just because i took isConnected: number so exacting num using readyState
 
-        console.log(db);
         console.log("db connected successfully ! ");
-        console.log("----------------------");
-        console.log(db.connections);
-
+    
 
     }catch(error){
     console.log("db connection failed ")
